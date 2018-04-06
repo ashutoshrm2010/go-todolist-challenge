@@ -7,6 +7,9 @@ Create an `.env` file with the PORT you would like the service to run on.
 PORT=8888
 ```
 
+### Requirements
+1. You must use MongoDB as a Database for this microservice. You can get a free MongoDB database @ [mlab.com](http://mlab.com).
+
 ### What needs to be done
 Below are the tasks that need to be completed in order to finish this Microservice.
 
