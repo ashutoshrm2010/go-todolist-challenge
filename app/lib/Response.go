@@ -13,6 +13,7 @@ type Response struct {
 // SendOK ...
 func (r *Response) SendOK(body interface{}) {
 	setJSON(r.ResponseWriter)
+	setHTTPStatus(r.ResponseWriter, http.StatusOK)
 	encodeJSON(r.ResponseWriter, body)
 }
 
