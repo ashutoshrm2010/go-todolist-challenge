@@ -5,7 +5,6 @@ import (
 	"github.com/PeakActivity/go-todolist-challenge/app/lib"
 	"encoding/json"
 	"gopkg.in/mgo.v2"
-	"fmt"
 	"errors"
 	"github.com/pborman/uuid"
 	"gopkg.in/mgo.v2/bson"
@@ -15,6 +14,7 @@ import (
 type Message struct {
 	Message string `json:"message"`
 }
+// insert items eg.. name or any json data
 
 func InsertItem(w http.ResponseWriter, r *http.Request) {
 	res := lib.Response{ResponseWriter: w}
@@ -39,13 +39,13 @@ func InsertItem(w http.ResponseWriter, r *http.Request) {
 	}
 	res.SendOK(data)
 }
+// update item based on id for eg.. name can be edit by id
 func UpdateItem(w http.ResponseWriter, r *http.Request) {
 	res := lib.Response{ResponseWriter: w}
 	decoder := json.NewDecoder(r.Body)
 	var data map[string]interface{}
 	err := decoder.Decode(&data)
 	if err != nil {
-		fmt.Println("error ", err)
 		http.Error(w, errors.New("please provide some entry").Error(), http.StatusUnauthorized)
 	}
 
@@ -65,6 +65,8 @@ func UpdateItem(w http.ResponseWriter, r *http.Request) {
 	}
 	res.SendCreated(data)
 }
+//list all the items...
+
 func ListItem(w http.ResponseWriter, r *http.Request) {
 	res := lib.Response{ResponseWriter: w}
 	var data []map[string]interface{}
@@ -94,13 +96,15 @@ func ListItem(w http.ResponseWriter, r *http.Request) {
 		res.SendOK(m)
 	}
 }
+//delete items based on _id provided...
+
 func DeleteItem(w http.ResponseWriter, r *http.Request) {
 	res := lib.Response{ResponseWriter: w}
 	decoder := json.NewDecoder(r.Body)
+	//provide id key should be _id
 	var data map[string]interface{}
 	err := decoder.Decode(&data)
 	if err != nil {
-		fmt.Println("error ", err)
 		http.Error(w, errors.New("please provide some entry").Error(), http.StatusUnauthorized)
 	}
 
